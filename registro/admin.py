@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Funcionario, ColetaFaces, Treinamento
+
+admin.site.register(Funcionario)
+
+admin.site.register(ColetaFaces)
+
+admin.site.register(Treinamento)
