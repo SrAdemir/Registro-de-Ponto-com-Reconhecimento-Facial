@@ -8,14 +8,13 @@ from random import randint
 
 class Funcionario(models.Model):
 
-    slug = models.SlugField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=200, unique=True)
 
     foto = models.ImageField(upload_to='fotos/')
 
     nome = models.CharField(max_length=100)
 
-    cpf = models.CharField(max_length=20,
-                           default='000.000.000-00' )
+    cpf = models.CharField(max_length=20)
 
 
     def __str__(self):
@@ -23,10 +22,8 @@ class Funcionario(models.Model):
 
     def save(self, *args, **kwargs):
         
-        seq = self.nome + '_FUNC' + str(randint(10000000, 9999999))
-
+        seq = self.nome + '_FUNC' + str(randint(1000000, 9999999))
         self.slug = slugify(seq)
-
         super().save(*args, **kwargs)
 
 class ColetaFaces(models.Model):
@@ -56,4 +53,4 @@ class Treinamento(models.Model):
 
         if model.objects.exclude(id=self.id).exists():
 
-            raise ValidationError('Só pode haver um arquivo salvo.')
+          raise ValidationError('Só pode haver um arquivo salvo.')

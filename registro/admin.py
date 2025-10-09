@@ -14,7 +14,6 @@ class FuncionarioAdmin(admin.ModelAdmin):
 
 admin.site.register(Funcionario, FuncionarioAdmin)
 
- #admin.site.register(Funcionario)
 
  #admin.site.register(ColetaFaces)
 
