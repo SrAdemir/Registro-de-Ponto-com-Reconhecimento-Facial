@@ -13,20 +13,22 @@ captura das faces para treinamento.
  Histórico de Registros Visualização dos registros de ponto por data e hora.
  Integração com Kivy App:
  📲
+ 
  Aplicativo Mobile Aplicativo Kivy que se comunica com a API Django para registro de ponto.
 API REST:
  🔗
  Endpoints para Reconhecimento e Cadastro Permite o consumo de dados de reconhecimento 
 facial.
+
  🔐
  API Para operações de registro e consulta de pontos.
- 🛠
- Tecnologias Utilizadas
+ 
+ 🛠 ###Tecnologias Utilizadas
  Backend Django, Django REST Framework, OpenCV
  App Mobile Kivy, kivymd
  Linguagem Python 3.9
- 📋
- Pré-requisitos
+ 
+ 📋 ### Pré-requisitos
  Antes de executar o projeto, certifique-se de que os seguintes pré-requisitos estão instalados em sua 
 máquina:
  Python 3.9
