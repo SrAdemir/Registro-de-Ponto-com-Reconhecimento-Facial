@@ -4,15 +4,15 @@ O projeto para a Escola tem como objetivo simplificar a chamada dos alunos.
  ⚙ Funcionalidades
  Registro de Ponto por Reconhecimento Facial:
  
- ✍ Funcionários Gerenciar informações sobre funcionários, incluindo foto, nome, documento e 
+ ✍ Funcionários Gerenciar informações sobre funcionários, incluindo foto, nome, documento e 
 captura das faces para treinamento.
  
-📷 Reconhecimento Identificação facial do usuário para registrar o ponto automaticamente.
+📷 Reconhecimento Identificação facial do usuário para registrar o ponto automaticamente.
  
 🧾 Histórico de Registros Visualização dos registros de ponto por data e hora.
  Integração com Kivy App:
  
- 📲 Aplicativo Mobile Aplicativo Kivy que se comunica com a API Django para registro de ponto.
+ 📲 Aplicativo Mobile Aplicativo Kivy que se comunica com a API Django para registro de ponto.
 API REST:
 
 🔗 Endpoints para Reconhecimento e Cadastro Permite o consumo de dados de reconhecimento 
