@@ -20,12 +20,12 @@ facial.
 
 🔐 API Para operações de registro e consulta de pontos.
  
- 🛠 ### Tecnologias Utilizadas
+ 🛠 Tecnologias Utilizadas
  Backend Django, Django REST Framework, OpenCV
  App Mobile Kivy, kivymd
  Linguagem Python 3.9
  
- 📋 ### Pré-requisitos
+ 📋 Pré-requisitos
  Antes de executar o projeto, certifique-se de que os seguintes pré-requisitos estão instalados em sua 
 máquina:
  Python 3.9
