@@ -1,0 +1,20 @@
+from django.contrib import admin
+
+from registro.models import (
+    Funcionario, ColetaFaces, Treinamento)
+
+class ColetaFacesInline(admin.TabularInline):
+    model = ColetaFaces
+    extra = 0
+
+class FuncionarioAdmin(admin.ModelAdmin):
+    readonly_fields = ['slug']
+    inlines = (ColetaFacesInline,)
+
+
+admin.site.register(Funcionario, FuncionarioAdmin)
+
+
+ #admin.site.register(ColetaFaces)
+
+admin.site.register(Treinamento)
