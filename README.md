@@ -4,7 +4,7 @@ O projeto para a Escola tem como objetivo simplificar a chamada dos alunos.
  ⚙ Funcionalidades
  Registro de Ponto por Reconhecimento Facial:
  
- ✍ Funcionários Gerenciar informações sobre funcionários, incluindo foto, nome, documento e 
+ ✍ Funcionários Gerenciar informações sobre Usuários, incluindo foto, nome, documento e 
 captura das faces para treinamento.
  
 📷 Reconhecimento Identificação facial do usuário para registrar o ponto automaticamente.
