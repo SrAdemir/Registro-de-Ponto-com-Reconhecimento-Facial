@@ -8,6 +8,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         # Abre a câmera (0 é o índice padrão)
         cap = cv2.VideoCapture(0)
+
         if not cap.isOpened():
             self.stdout.write(self.style.ERROR('Erro ao abrir a câmera'))
             return
@@ -17,6 +18,7 @@ class Command(BaseCommand):
         while True:
             # Captura frame por frame
             ret, frame = cap.read()
+            
             if not ret:
                 self.stdout.write(self.style.ERROR('Erro ao capturar o frame'))
                 break
