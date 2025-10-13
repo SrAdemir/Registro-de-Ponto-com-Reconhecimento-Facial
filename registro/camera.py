@@ -30,18 +30,17 @@ class VideoCamera(object):
         ret, frame = self.get_camera()  # Leitura do frame
         if not ret:  # Verifica se a captura do frame foi bem-sucedida
             print("Falha ao capturar o frame.")
-            
             return None
-        
-            # Defina a região de interesse (ROI) onde o rosto será detectado
-            altura, largura, _ = frame.shape
-            centro_x, centro_y = int(largura/2), int(altura/2)
-            a, b = 140, 180
-            x1, y1 = centro_x - a, centro_y - b
-            x2, y2 = centro_x + a, centro_y + b
-            roi = frame[y1:y2, x1:x2]
-        
-         # Converta a ROI em escala de cinza para a detecção de faces 
+
+        # Defina a região de interesse (ROI) onde o rosto será detectado
+        altura, largura, _ = frame.shape
+        centro_x, centro_y = int(largura/2), int(altura/2)
+        a, b = 140, 180
+        x1, y1 = centro_x - a, centro_y - b
+        x2, y2 = centro_x + a, centro_y + b
+        roi = frame[y1:y2, x1:x2]
+
+        # Converta a ROI em escala de cinza para a detecção de faces 
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         
         # Detecta faces no frame
