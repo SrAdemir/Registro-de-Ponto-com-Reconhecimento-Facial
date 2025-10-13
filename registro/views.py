@@ -19,7 +19,7 @@ camera_detection = VideoCamera()  # Instância da classe VideoCamera
 # Captura o frame com face detectada
 def gen_detect_face(camera_detection):
     while True:
-        frame = camera_detection.get_camera()  
+        frame = camera_detection.detect_face()  
         if frame is None:
           continue
         yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
@@ -73,11 +73,10 @@ def extract(camera_detection, funcionario_slug):
 
         if amostra >= numeroAmostras: 
             break # deu 10 amostra para
-     
-    camera_detection.restart()  # Reinicia a câmera após as capturas
+
     return file_paths
 
-def face_extract(context, funcionario):
+def face_extract(context, funcionario): 
  num_coletas = ColetaFaces.objects.filter(
     funcionario__slug=funcionario.slug).count()
  print(num_coletas) # Quantidade de imagens que funcionario tem cadrastrado
@@ -94,10 +93,11 @@ def face_extract(context, funcionario):
           coleta_face = ColetaFaces.objects.create(funcionario=funcionario)
           coleta_face.image.save(os.path.basename(path), open(path, 'rb'))
           os.remove(path) # Remove o arquivo temporário após o salvamento
+
        # Atualiza o contexto com as coletas salvas
       context['file_paths'] = ColetaFaces.objects.filter(
-           funcionario__slug=funcionario.slug)
-      context['extracao_ok'] = True # Define sinalizador de sucesso 
+                funcionario__slug=funcionario.slug)
+      context['extracao_ok'] = True
  
  return context
 
@@ -105,30 +105,38 @@ def face_extract(context, funcionario):
 def criar_coleta_faces(request, funcionario_id):
     # Use get_object_or_404 para evitar o erro DoesNotExist
     funcionario = Funcionario.objects.get(id=funcionario_id)
-    
     botao_clicado = request.GET.get('clicked', 'False') == 'True'
+
+    # 1. BUSCA DE COLETAS ATUAIS
+    coletas_atuais = ColetaFaces.objects.filter(funcionario=funcionario)
+
+    # 2. VARIÁVEL DE CONTROLE CRÍTICA: Define se já temos imagens salvas
+    inicial_extracao_ok = coletas_atuais.exists() 
+    # O valor será True se houver coletas, ou False se não houver.
 
     context = {
         'funcionario': funcionario,
+        'file_paths': coletas_atuais,
         'face_detection': face_detection, 
         'valor_botao': botao_clicado,
         'erro': None,
         'sucesso': None,
-        # Você pode querer listar as faces coletadas aqui também
-        'coletas_existentes': ColetaFaces.objects.filter(funcionario=funcionario) 
+        # 3. NOVO: Define a chave de controle para o template
+        'extracao_ok': inicial_extracao_ok, 
+        'coletas_existentes': coletas_atuais 
     }
-    
     # SOMENTE CHAME A EXTRAÇÃO SE O BOTÃO FOI CLICADO
     if botao_clicado:
         print("Extração de Imagens solicitada...")
-        
+
         # AQUI OCORRE A EXTRAÇÃO E SALVAMENTO DEMORADO
         context = face_extract(context, funcionario) 
-        
+
         # Importante: Redirecione após POST/GET de ação para evitar reenvio
-        if context.get('sucesso') or context.get('erro'):
-             # Redireciona para o mesmo URL, mas sem o parâmetro 'clicked=True'
-             return redirect('criar_coleta_faces', funcionario_id=funcionario.id) 
+        if context.get('extracao_ok') or context.get('erro'):
+
+        # Redireciona para o mesmo URL, mas sem o parâmetro 'clicked=True'
+            return redirect('criar_coleta_faces', funcionario_id=funcionario.id) 
 
     # Renderiza o template com o streaming (sem extração)
     return render(request, 'criar_coleta_faces.html', context)
